@@ -5,25 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use Auth;
-use App\User;
-use App\Events\ChatEvent;
-
 class ChannelsController extends Controller
 {
-
-  public function send(request $request){
-    return $request->all();
-    $user = User::find(Auth::id());
-    event(new ChatEvent($request->message, $user));
-  }
-
-
-  // public function send(){
-  //   $message = "Hello";
-  //   $user = User::find(Auth::id());
-  //   event(new ChatEvent($message, $user));
-  // }
-
     /**
      * Display a listing of the resource.
      */

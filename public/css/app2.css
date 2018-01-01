@@ -92,8 +92,3 @@ body{
   margin-top: 40px;
   margin-left: 50px;
 }
-
-.list-group{
-  overflow-y: scroll;
-  height: 300px;
-}

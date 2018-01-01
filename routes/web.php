@@ -15,5 +15,4 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::resource('channels', 'ChannelsController'); //chatui irgi tinka
-//Route::post('send', 'ChannelsController@send');
+Route::resource('channels', 'ChannelsController');
