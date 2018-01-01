@@ -1,12 +1,11 @@
-@extends('layouts.app')
-
-@section('content')
-@if(isset($error_msg))
+<?php $__env->startSection('content'); ?>
+<?php if(isset($error_msg)): ?>
  <div class="container">
    <div class="col-md-4 loginbg">
      <h1>Create channel</h1>
      <div class="alert alert-danger">
-         {{ $error_msg }}
+         <?php echo e($error_msg); ?>
+
      </div>
      <form class="" action="" method="">
        <div class="form-group">
@@ -23,15 +22,16 @@
      </form>
    </div>
  </div>
-@else
+<?php else: ?>
 <div class="container">
   <div class="col-md-4 loginbg">
     <h1>Create channel</h1>
-    @if(session()->has('error_msg'))
+    <?php if(session()->has('error_msg')): ?>
      <div class="alert alert-success">
-         {{ session()->get('error_msg') }}
+         <?php echo e(session()->get('error_msg')); ?>
+
      </div>
-   @endif
+   <?php endif; ?>
     <form class="" action="/channels" method="post">
       <div class="form-group">
         <label for="name">Channel name</label>
@@ -47,6 +47,8 @@
     </form>
   </div>
 </div>
-@endif
+<?php endif; ?>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -16,3 +16,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
 Route::resource('channels', 'ChannelsController');
+
+//Users Controller
+//Route::resource('settings', 'UsersController');
+
+Route::get('settings', 'UsersController@index');
+Route::post('settings/{id}', 'UsersController@update');

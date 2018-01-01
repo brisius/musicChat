@@ -7,18 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- CSRF Token -->
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
-  <link href="{{ asset('css/app2.css') }}" rel="stylesheet">
+  <link href="<?php echo e(asset('css/app2.css')); ?>" rel="stylesheet">
   <title>Music WebChat</title>
 </head>
 
 <body>
   <!-- NAV START -->
   <nav class="nav_bg navbar navbar-expand-lg">
-    <a class="navbar-brand" href="{{ url('/') }}"><img src="/img/Logo.png" alt=""></a>
+    <a class="navbar-brand" href="<?php echo e(url('/')); ?>"><img src="/img/Logo.png" alt=""></a>
     <!-- Collapsed Hamburger -->
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,38 +26,39 @@
 
     <div class="collapse navbar-collapse justify-content-end nav-family" id="navbarNav">
       <ul class="navbar-nav">
-        @guest
+        <?php if(auth()->guard()->guest()): ?>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('login') }}">Login<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo e(route('login')); ?>">Login<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('register') }}">Register</a>
+          <a class="nav-link" href="<?php echo e(route('register')); ?>">Register</a>
         </li>
-        @else
+        <?php else: ?>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('home') }}">Dashboard<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo e(route('home')); ?>">Dashboard<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('channels.create') }}">Create channel<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="<?php echo e(route('channels.create')); ?>">Create channel<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/settings">My account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+          <a class="nav-link" href="<?php echo e(route('logout')); ?>" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
         </li>
 
-        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-            {{ csrf_field() }}
+        <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+            <?php echo e(csrf_field()); ?>
+
         </form>
-        @endguest
+        <?php endif; ?>
       </ul>
     </div>
   </nav>
   <!-- NAV ENDS -->
 
 
-  @yield('content')
+  <?php echo $__env->yieldContent('content'); ?>
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
