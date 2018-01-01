@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Channel;
 use Auth;
+use Illuminate\Support\Facades\DB;
+
 class ChannelsController extends Controller
 {
     /**
@@ -21,7 +23,17 @@ class ChannelsController extends Controller
      */
     public function create()
     {
-        return view('channels.create');
+        $id = Auth::user()->id;
+        $channel = DB::table('channels')
+        ->select('id')
+        ->where('user_id', $id)
+        ->get();
+        if(isset($channel) && count($channel) > 0){
+          return view('channels.create')->with('error_msg', 'You already have a channel!');
+        }
+        else{
+          return view('channels.create');
+        }
     }
 
     /**
