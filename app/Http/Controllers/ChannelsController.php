@@ -60,7 +60,7 @@ class ChannelsController extends Controller
     public function show($id)
     {
         $channel = Channel::findOrFail($id);
-        return view('channels.show');
+        return view('channels.show',compact('channel'));
     }
 
     /**
@@ -71,7 +71,9 @@ class ChannelsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $channel= Channel::find($id);
+
+        return view('channels.edit',compact('channel'));
     }
 
     /**
@@ -83,6 +85,11 @@ class ChannelsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $channel= Channel::find($id);
+        $channel->name =$request->input('name');
+        $channel->info =$request->input('info');
+        $channel->update();
+        return redirect('');
         //
     }
 
