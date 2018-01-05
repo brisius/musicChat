@@ -19,6 +19,8 @@ Route::resource('channels', 'ChannelsController');
 
 //Users Controller
 //Route::resource('settings', 'UsersController');
-
+Route::get('admin', 'UsersController@adminindex');
+Route::post('admin/ban', 'UsersController@ban');
+Route::delete('admin/del', 'UsersController@destroy');
 Route::get('settings', 'UsersController@index');
 Route::post('settings/{id}', 'UsersController@update');

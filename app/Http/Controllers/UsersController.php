@@ -23,6 +23,14 @@ class UsersController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function adminindex()
+    {
+        return view('user.admin');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -65,6 +73,23 @@ class UsersController extends Controller
         //
     }
 
+    public function ban(Request $request)
+    {
+        $user = User::where('name', $request->input('username'))->first();
+        if ($user != null) {
+            if ($user->userlevel == 0) {
+                return redirect()->back()->with('error_msg', 'User is already banned!');
+            } else {
+                $user->userlevel = 0;
+                $user->update();
+                return redirect()->back()->with('message', 'User successfully banned!');
+            }
+        } else {
+            return redirect()->back()->with('error_msg', "User with this username doesn't exist!");
+        }
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      *
@@ -102,11 +127,18 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $request
+     * @return void
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        //$user = User::find($request->input('username'));
+        $user = User::where('name',$request->input('username')) -> first();
+        if ($user != null) {
+            $user->delete();
+            return redirect()->back()->with('message', 'User successfully deleted!');
+        } else {
+            return redirect()->back()->with('error_msg', "User with this username doesn't exist!");
+        }
     }
 }

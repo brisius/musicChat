@@ -18,6 +18,15 @@
               <p class="card-text">{{$channel->info}}</p>
               <h5 class="card-title" style="color:black;">Created by</h5>
               <p class="card-text">{{Auth::user()->name}}</p>
+                @if(Auth::user()->userlevel==5)
+                    <form class="" action="/channels/{{$channel->id}}}" method="post">
+                    {{method_field('DELETE')}}
+                    {{csrf_field()}}
+                        <div class="button-height">
+                            <button type="submit" class="btn  float-left">Delete Channel</button>
+                        </div>
+                    </form>
+                    @endif
             </div>
           </div>
         </div>

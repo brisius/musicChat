@@ -101,6 +101,9 @@ class ChannelsController extends Controller
      */
     public function destroy($id)
     {
+        $channel = Channel::find($id);
+        $channel->delete();
+        return redirect('');
         //
     }
 }

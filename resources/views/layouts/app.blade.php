@@ -34,6 +34,11 @@
           <a class="nav-link" href="{{ route('register') }}">Register</a>
         </li>
         @else
+          @if(Auth::user()->userlevel==5)
+            <li class="nav-item">
+              <a class="nav-link" href="/admin">Admin Panel<span class="sr-only">(current)</span></a>
+            </li>
+          @endif
         <li class="nav-item">
           <a class="nav-link" href="{{ route('home') }}">Dashboard<span class="sr-only">(current)</span></a>
         </li>
