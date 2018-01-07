@@ -27,8 +27,9 @@
     23 => 'Laravel\\Tinker\\TinkerServiceProvider',
     24 => 'App\\Providers\\AppServiceProvider',
     25 => 'App\\Providers\\AuthServiceProvider',
-    26 => 'App\\Providers\\EventServiceProvider',
-    27 => 'App\\Providers\\RouteServiceProvider',
+    26 => 'App\\Providers\\BroadcastServiceProvider',
+    27 => 'App\\Providers\\EventServiceProvider',
+    28 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -45,8 +46,9 @@
     10 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     11 => 'App\\Providers\\AppServiceProvider',
     12 => 'App\\Providers\\AuthServiceProvider',
-    13 => 'App\\Providers\\EventServiceProvider',
-    14 => 'App\\Providers\\RouteServiceProvider',
+    13 => 'App\\Providers\\BroadcastServiceProvider',
+    14 => 'App\\Providers\\EventServiceProvider',
+    15 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (

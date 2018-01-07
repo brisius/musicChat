@@ -24,3 +24,7 @@ Route::post('admin/ban', 'UsersController@ban');
 Route::delete('admin/del', 'UsersController@destroy');
 Route::get('settings', 'UsersController@index');
 Route::post('settings/{id}', 'UsersController@update');
+
+Route::get('chat','ChatController@chat');
+Route::post('send','ChatController@send');
+
