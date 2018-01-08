@@ -11927,12 +11927,14 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.component('message', __webpack_requi
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
+
     data: {
         message: '',
         chat: {
             message: [],
             user: [],
-            color: []
+            color: [],
+            dmg: this.channel
         }
     },
 
@@ -11944,6 +11946,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 this.chat.message.push(this.message);
                 this.chat.user.push('You');
                 this.chat.color.push('success');
+
                 axios.post('/send', {
                     message: this.message
                 }).then(function (response) {
@@ -11958,8 +11961,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     mounted: function mounted() {
         var _this2 = this;
 
-        Echo.private('chat').listen('ChatEvent', function (e) {
-
+        Echo.private('chat.' + this.channel).listen('ChatEvent', function (e) {
             _this2.chat.message.push(e.message);
             _this2.chat.user.push(e.user);
             _this2.chat.color.push('warning');

@@ -3,7 +3,7 @@
 namespace App\Events;
 
 use App\User;
-use Illuminate\Broadcasting\Channel;
+use App\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -18,15 +18,19 @@ class ChatEvent implements ShouldBroadcast
 
     public $message;
     public $user;
+    public $channel;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message, User $user)
+    public function __construct($message, User $user, $channel)
     {
         $this->message=$message;
         $this->user=$user->name;
+        $this->channel=$channel;
+        echo($channel);
         $this->dontBroadcastToCurrentUser();
     }
 
@@ -37,6 +41,7 @@ class ChatEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat');
+        return new PrivateChannel('chat.'.$this->channel);
     }
+
 }
