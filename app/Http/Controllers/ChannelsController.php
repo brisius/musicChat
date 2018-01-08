@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Channel;
+use App\Playlist;
 use Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -60,7 +61,44 @@ class ChannelsController extends Controller
     public function show($id)
     {
         $channel = Channel::findOrFail($id);
-        return view('channels.show',compact('channel'));
+        $playlists = DB::table('playlists')
+        ->where('userid', $channel->user_id)
+        ->get();
+        $songs = array();
+        for ($i=0; $i < count($playlists); $i++) {
+          $songs[] = array('name' => $playlists[$i]->playlist_name, 'songs' => DB::table('songs')
+          ->select('url')
+          ->where('playlist_id', $playlists[$i]->id)
+          ->get());
+        }
+
+        $urls = self::getURL($songs);
+
+        $counter = 0;
+
+        $playlists = DB::table('playlists')
+        ->where('userid', $channel->user_id)
+        ->get();
+        return view('channels.show',compact('channel', 'playlists', 'urls', 'counter'));
+    }
+
+    public function getURL($songs){
+        $urls = array();
+        $youtube_ids = '';
+        for ($i=0; $i < count($songs); $i++) {
+          $youtube_ids = '';
+            for ($j=0; $j < count($songs[$i]['songs']); $j++) {
+                preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $songs[$i]['songs'][$j]->url, $match);
+                $youtube_ids .= $match[1] . ",";
+            }
+            $urls[] = array('name' => $songs[$i]['name'], 'ids' => $youtube_ids);
+        }
+        $urls2 = array();
+        for ($i=0; $i < count($urls); $i++) {
+          $string = "https://www.youtube.com/embed/?playlist=" . $urls[$i]['ids'];
+          $urls2[] = array('name' => $urls[$i]['name'], 'url' => $string);
+        }
+        return $urls2;
     }
 
     /**
