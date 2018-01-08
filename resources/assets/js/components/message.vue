@@ -1,21 +1,26 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Example Component</div>
+    <div>
+        <li class="list-group-item" :class="className"><slot></slot></li>
 
-                    <div class="panel-body">
-                        I'm an example component!
-                    </div>
-                </div>
-            </div>
-        </div>
+        <small class="badge float-right" :class="badgeClass">{{user}}</small>
     </div>
 </template>
 
 <script>
     export default {
+        props:[
+            'color',
+            'user'
+        ],
+        computed:{
+            className(){
+                return 'list-group-item-'+this.color;
+            },
+            badgeClass(){
+                return 'badge-'+this.color;
+            }
+        },
+
         mounted() {
             console.log('Component mounted.')
         }
