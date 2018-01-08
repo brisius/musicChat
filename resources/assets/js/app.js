@@ -29,8 +29,7 @@ const app = new Vue({
         chat:{
             message:[],
             user:[],
-            color:[],
-            dmg:this.channel
+            color:[]
         }
     },
 
@@ -55,7 +54,7 @@ const app = new Vue({
         }
     },
     mounted(){
-        Echo.private('chat.' + this.channel)
+        Echo.private('chat.')
             .listen('ChatEvent', (e) => {
             this.chat.message.push(e.message);
         this.chat.user.push(e.user);

@@ -11933,8 +11933,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         chat: {
             message: [],
             user: [],
-            color: [],
-            dmg: this.channel
+            color: []
         }
     },
 
@@ -11961,7 +11960,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     mounted: function mounted() {
         var _this2 = this;
 
-        Echo.private('chat.' + this.channel).listen('ChatEvent', function (e) {
+        Echo.private('chat.{channel->id}').listen('ChatEvent', function (e) {
             _this2.chat.message.push(e.message);
             _this2.chat.user.push(e.user);
             _this2.chat.color.push('warning');
